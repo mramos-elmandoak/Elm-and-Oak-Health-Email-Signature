@@ -106,7 +106,7 @@
   <p class="note">Use when corresponding on behalf of SOS programs</p>
 </div>
 
-<div id="sig-render" style="position:fixed;left:-9999px;top:-9999px;background:#ffffff;padding:12px;display:inline-block;"></div>
+<div id="sig-render" style="position:fixed;left:-9999px;top:-9999px;background:#ffffff;padding:12px;width:620px;"></div>
 
 <script>
 const imgs = {
@@ -268,14 +268,23 @@ async function copySig(variant) {
     // Use html2canvas to capture as PNG
     const canvas = await html2canvas(renderDiv, {
       backgroundColor: '#ffffff',
-      scale: 4,
+      scale: 2,
       useCORS: true,
       logging: false
     });
     renderDiv.innerHTML = '';
 
+    // Resize canvas back to 1x so Outlook displays it at natural size
+    const display = document.createElement('canvas');
+    display.width  = Math.round(canvas.width  / 2);
+    display.height = Math.round(canvas.height / 2);
+    const ctx = display.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(canvas, 0, 0, display.width, display.height);
+
     // Copy PNG to clipboard
-    canvas.toBlob(async (pngBlob) => {
+    display.toBlob(async (pngBlob) => {
       try {
         await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob })]);
         btn.disabled = false;
