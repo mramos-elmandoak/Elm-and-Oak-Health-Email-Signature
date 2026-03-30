@@ -106,7 +106,7 @@
   <p class="note">Use when corresponding on behalf of SOS programs</p>
 </div>
 
-<div id="sig-render" style="position:fixed;left:-9999px;top:-9999px;background:#ffffff;padding:12px;width:620px;"></div>
+<div id="sig-render" style="position:fixed;top:0;left:0;background:#ffffff;padding:12px;display:none;z-index:9999;pointer-events:none;"></div>
 
 <script>
 const imgs = {
@@ -117,24 +117,25 @@ const imgs = {
   IMG_SOS: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAO0AAAETCAYAAADaooFSAAAvzElEQVR4Xu2dzZHjvNKlPxPagYmgCbU4BsCAWdTyW3IxBtR4ABPKggmaUCZwMQa0CTShPZi5p0W0UidBiQRJiZKweEJiIvMk/hIkVf3e+1/4H5//VTk0v/5DGPn6D3Hk+z/0BXRjfCKMNPC5KwfEGSoPocGpcCLOxTj8h//3AP7glP8Hp/60OPVN+1x5EM5Q2Z0PnAohFacWzZEZcC7mgNNTgI6vsjPOUNmcgNMm73G6i2khPDsDTo/cLeoj9l1whspqGpzePXlH0g3+Dgw4F3G9E++AM1SK4CMvH3cH+E387vzG6RDjHOm8VQpwhspsaqEuh3PFOasFvAJnqFylwen9dIDfkJVlcA45l5xTnefKFZyhkuUTj31H5SNmj/Mvtwn2KyzExnc4//1Wc94T5m9R34Fn4QyVf3ADRdzvrsrCTEXZ4nF/UgkjEeei1r7uxR+ccjbw/aqMOEPl74bpsO+fZwaccnzhVCDahyPS4HRnj7jPn6+Yg/m0H2+PM7wxDU6FpJtnC3gX/cZpEz7i7rkXHzj/eWuvIh5wevLQ3G+LM7whDbYvVm5gbuQW7/Wol4q4h5+TtXBOI17r0CvCGd6IBtsWKzcV9eoj3QkWF+eiw7Z34bcvXmd4A7jY3/CboYRaqPPZuoCp8wWf5+VxhheHi7zFpvmN+ieKUjhnLbZ7hB7wZu+8zvCiBJwKTRd8Cemu+gGvXymjwXZ/VuvxPL/Er8IZXowtHoUHvPk71J1osc3dt8OLr5UzvBB8h1rzKDzgzR67DgKfZDr49VgC172F134JnOEF4Cn7A7+Qcxnwwgv+RDRYX7w9XvBPbs7w5ASU310H1GI9Ig3WFS/3wxe87tPiDE9M6bsrFzXixd+DXoAG64q3x4ussTM8IXwH+g2/SHPo8CIL+UY0KH/94QH9Ca/5VDjDk9Gi7HGYRR7g9SrPQ0D5Yc2nMtV7GpzhiSh5HGaBf43xldeA61l6cD/lU5YzPAGc6JITtscL/pJY+Qv3xA/8mt+CxR7g9Q6NMxycDyz/1zP17vo+fKLsrtuO8U+BMxyYkgXhHbkZ4yvvQeldtxvjD48zHJQWfpJvEU185f0oOeRZ7Cx61ToUznBAOvjJvcZTvqdUdqHB8t8/6H/ownWGg9HBT+o1Dj/hlYfwDb9XrnHo1ypnOBAd/GReg/6qUakkWix7XKbvh4k/DM5wAHinXPpI05r4SmUKFuEAv3+mOGThOsODWVqwnNRg4iuVW5TssUMVrjM8kKWTOeBgk1l5Kjr4PTXFoQrXGR7E0oKlL2NUp1JZQge/t6Y4TOE6w4Po4SdpilqwlS1p4ffYFCzcRuLvjjM8gA5+cqagr8ZXKmtp4ffaFA+/aTjDnengJ2UK+mp8pbIVLfyem+KhhesMd+QLfjKm6DLxlcrWtPB7b4qfTPxdcIY70cJPwhRdJr5S2YsWfg9O0WXid8cZ7gB/gdPBT9Fl4iuVvWnh9+IU9NX4XXGGnWkw/5+SPezxo1LBssINmfjdcIYd4Ys7X+B1wDke+qJfqYx08Hszx13/FOQMO9LBDzZHLdjKkejg92iOu+1bZ9iJub8U3/XEqlRmMvcJscvEbo4z7ECAH1wOFix/pNL4SuXR8A46wO/ZHG0mflOcYWM4WBajDixHm4mvVI4Cbyhz9vLuT4vOsDE/8IPKETOxlcrRaOH3bg4+TmvsZjjDhsx9j2Vha2ylclS+4fdwjpiJ3QRn2Ii5jxID7vSLW6WyIT38Xs6xy280zrARfDzQASgs6l0GVansDG80c25KuzwmO8MGRPjO5+Djs8ZWKs/CJ/yezhEzsatwhpXwzqmdzlHfYyuvwNz3202fKJ1hJXMeiwfU99jKa8B9PMDvcWXTx2RnWAEfd7WzOUImtlJ5VuY+XW72OugMhTSY92LOxwmNrVSenQi/1xXWxyZPmM5QCN9RtZPKgI06fYOA048EcaSfoBvbW2z8znEHOI8Bp9M74jSWfgIelPShL2PusQZbw/U58ppyTgf4Pa90mdjFOEMBAb5zOeinsVvAxeHG7OFzLoWHT4tjbmxu2g7zNsctfuM0Z9TUPEeAaxrxXGsa4HPnWH2YOEMBA3zHFG4QjVtDg9OiDvC5tqLDBhO8kganfvyB799WUDti538vO4MGz7+mHXxOpc/ELcIZFvIF3ymFm2KrU67BvInZEuZjXu3LnnC+Ovi+7E3Edms1l0eMlXffBr4va+FY5hywIRM7G2dYwNwOtpnYEnhAzMm3B8zL/NqnPfjE48ZJBqzcVAt4xTWlpuZShkzcbJxhARG+M0qfiVsKD4ceXvsRdNj3TvQNn/NRtPD924pXX9MBPo/SZuJm4Qwz4SDnnJAfmdglMH5OnnvyG9svMungcz0aHiLaz7W8w5oG+BzKkImbhTPMZM4docvELeGIi5vYepE7+BxHoYXvbynvtKY9fA6lzcTdxBlm0MAnV7gw9NPYuRx5cRMdfL9LaOG1j0aA7/dSnmFNf+D7XUqA11eGTNxNnGEGHXxyJWbi5sLTjqeeah6RNeMkDY6/kcmAdXehd1pTSwevr7SZuKs4ww04+ZpU4SZcs8Df8JpHJsCPYS482VXvqET4/s+Fsap3ZAL8GEpo4LWVIRN3FWe4QYRPqtBH4+bSwOsdnQFlh1QY458Jro+O4xaMUZ2jM6BsTXN08PrKZyZuEme4Agdx61Fu7V22g9d8BiL8WG7Rm/hngeuj47gFY1TnGeATn46lhAZeW+kzcZM4wxW+4JMpMRM3lwZe75lg/3VMU3xk4p+FJYdyk4l/Jth/HVMJHby2wj2hcVmc4QoDfCLL2rtshNfcEva/x+2nhVI6+DFNQV+N3wqO8XfGvhU8vHU8U8w56Ncw4Dhreo0Ar610mbgszjDBJ3wSJWbilrD1RuNC8hEnd4LxcOGY+kzcGhr4XDm23mQcZy43x95l/NcwwOeZ4hFr+pOJW0MDn6uEHl5b4Rg0zuEME/TwCZQmEzcXxqreGrhZ5vYnjP6qUQI3lOor3FgaV0qPeeMM2G6MJFc0Cjegxq3hUWvaweuXMGfdvzJxDmfI0MCLK10mbglzBjQXLpbq34IbrB/j1/AHXlvpMnElsL+qfQ2OcTDxa5izubZeU/Zfc1yD/j9j/Bq4pktzTzHA61vYrjEOZ8jwDS+ufGTilhDhNUvgBDfw+nPh5lDNpbTwupYhE1NCgNe+RWvi19DDaysxE1fC2jXt4TWX0sLrlsDDTrWVkIm7wBkyDPDClj4Ts5QtTkTCA0a1l8ATlZtEdZfAsahuosn4l8DDRbXnMsDrlaC6SpeJKWGLNR3gdZdwbU2XwL6ottJl4i5wBuETXlRpM3FL6eF1S1h7xycBXncpqpmYM59zaOG158IiUL0SAry2pc/ElHArzxwCvO5SWHCqW0IHr23hTUNjLnAGYXWCmfTw2iWobikdvPYSWJyqSWLGt4Q1G4gHm+qV0MJrW/pMTAmqW8raw2pqTZcS4LWVNhP3D2cwzLmVcyI0roQeXnspA7xuKRw7DyTNMZepeekzvkv5Da+7FNUsIcLrWvpMzFK2uimQvda0hAFe3/KTifmHMxjaUeAaPLU1roQeXnsp1FDdNUT4HHPgxmCs6hEWnPov5eqCzqSH110KNVT33jmWEuFzzOHampbAA0BzKDxkNO4vzmDg5lAhy5CJKaWH1y9Bddew5GSmX4fbj1AaV0KE111KD6+7FB5Aqrt1DqK6a9hjTUto4PMpbSbuL84wwsGpiPKViSulh9cv4QNeew3XTsSSRVWNEiK87lJuHchzUV1Ln/EvYes1jfA5EiVrWgoPPc1v4RppzF+cYaQVgRxNJq6UHl6/BBaZaq+hwaX+mkUN8P0tIcJrLyXC65agupY+419CB6+9hgaX+mvWdA286elYtV8a8xdnGOlEQOEpoTFriPA5Smng9dfAE6/D+kUN8H0tIcJrLyXC65bwC1576xxk67ttN7J2TdfQwI9TyfbPGUZY5Spg4SmhMWto4XOUwgPl2mZ6FAG+ryVQR7WXEuF1Swjw2gluOPUv5ahruhaOS8dq+c7EZIuWp5oGK1uffA18jjUccZEDfD9LoI5qLyXC65YQ4LUTnH/1X8MR13QtLEodp2XIxGSLNmaCbwptwK1TZynU2/pwWUML38cSArz2UiK8bgkBXtvy6mu6ljk3yEbjVIT0mUBL9pa9AS18rrX8wZWfzu9MhO9fCQFeeykRXreEAK9taTMxaznSmm4Bx6NjtLQaowJzHmk+JWYrmPvWAErp8PhHqwjfrxICvPZSIrxuCQFeW3nlNd2CH/ix6TgvYlQgZIIUjdmSL/h8W/HoR6sI36cSArz2UiK8bgkBXlt55TXdghZ+XJZBY1QgZoIsvQrsABdC824FT/0WPuc9iPD9KSHAay8lwuuWEOC1c7zqmm5BAz8mhT7/YlSgzwRYovjvAU/OvR6pEh3u/2gV4ftRQoDXXkqE1y0hwGvneNU13YoBfjyW1vprsDorQfz3ooXPvTX3frSK8H0oIcBrLyXC65YQ4LWnaDPxW3PvNd2KDn4slm/rbwM5WHVW7nmSfcHn35p7PlpF+PwlBHjtpUR43RICvPY1Xm1Nt+LWvPAw+udvA9uM82Tgnejg+7EHzLP3gRTh85YQ4LWXEuF1Swjw2rfoTPyeMM/ea7oVc26Y//xtIG/B6qiToMnuQQfflz3Y+9EqwucsIcBrLyXC65YQ4LXn0I3xe7P3mm6J9l0JydcG9RlHC2/hmuhe3Hp82Io9H60ifL4SArz2UiK8bgkBXnsur7CmW9LD993SJl8bxMGpoyUY30fwidt93IoO2z9aRfg8JQR47aVEeN0SArz2Ep59Tbekg++zJSbfFMDBqJOiSR5Bg33/5mfZ+tEqwucoIcBrLyXC65YQ4LWX0uB513RLbj159Mk3BYSMk2VIAQchwvdxD7Z8tIrw+iUEeO2lRHjdEgK8dikRXn8PtlzTLQnwfbUMyTcFtBknS58CDkTA/R6tvuHzLyXC65YQ4LWXEuF1Swjw2msIeK413ZLZT7spIGYcjjzABAfaw/d3D36w7p0owmuWEOC1lxLhdUsI8NpreaY13ZpbB1agX3Jm59XBEke/oxLh+7wHv1G+yFv1McBrLyXC65YQ4LW3IsLn24M1a7o1PXz/LIF+i5wPTsDtk2oLShc5jvFr4ThVeykRXreEAK+9JQHHXtOtmXXzTM5DxsESRr+jc69Hq5JFjiZ+DQFeeykRXreEAK+9NUde062J8P2ysP1f0WqjouJHJ8KPYWuWLvJWfQrw2kuJ8LolBHjtvYjw+bdm6ZpuzRd8nyw9/ZKzNioq/gwE7P9o1cHnnSJm4kvguFR7KRFet4QAr70nAfuvKR9RNe+9CPD9sfT0o+NHptEy0PFJucejVYTPm4N+GltCgNdeSoTXLSHAa+/NkdZ0awJ8Xyx8EvhbtLccezo+ORF+XFsS4HMqW/VhTq5bRHjdEgK89r2I8P3ZkgCfc294IGk/lLcpWhKw36PVgNvvQjETVwLHodpLifC6JQR47XsS8Ng13QPth/JWRUv2fLT6hs9niZmYEgK89lIivG4JAV773jxyTfdA+6D8LdqYabB0dHwxIvw4t6CBz7V1zgCvvZQIr1tCgNd+FBG+f1vQwOfaE82vNHSKmQYL21X4FQjY/tGqg8+TiBn/Ethv1V5KhNctIcBrP5KA+67pHvTwfbAEOsVMg4XtKvwq8NGKv8jpmNcw9R4UM74lBHjtpUR43RICvPajueea7kEPn9/y9kVLuCBbns4tfA4SM74lBHjtpUR43RICvPYR2HpNv+Bz7EUPn99Si3YkwI+7lB94fRIzviWwr6q9lAivW0KA1z4KAb6/pfTw+nvRw+e31KI1dPBjL0W1Scj4lUAd1V5KhNctIcBrH4kOvs+lqPZe9PC5LbVoDQ382EsJ8Pq0qV8JOe2lRHjdEgK89pFo4PtcSoDX34MePvdFP+gUMw0Wtqvwo2mwz//WDx9tdfwl5N6BQsavhBZeeykRXreELdegwbZ6iT3XdA96+NyWpyraBqeJS78M8lN91kJ9HX8JEV47ZPxKyGkvJcLrlqC6S2mw/5q28P0uIcJr70EPn9ty+KJtcLmoytYnM/U0Rwk9vHaT8Sshwmsv5RtetwTVnUOD11nTPejhc1v+Fu1npuERnU00uL6oli4TvxbNUUIPr7uVdoTXXUoPr7uUP/C6UzR43TXdmh4+t+Vv0YZMw70722D+oiqMVb01qH4JPbwu4UZX36XwLqm6S+nhdZdCDdW1NHiPNd2aW/N1mKLt4fPOpYPXW4Pql9DD6xLa1XcpU9pLGOB1l/IDr2vpMzFz6eD11qD6JfTwunugeZVfdAqZBgsrX4W3hncPzbuEBl6zFNUuoYfXJV3GdylLHktz/ILXLCHCa1vWrukHvGYpql1CD6+7B5pX+ftf+cxZRBXemk/4nEvo4TVL4EZR7RJ6eG0SM74lrNnQLbxeCVwz1baETMwSenjNEvZe063RvMrfop3leAd4B9G8S/iC11wKNVS3BN5lVJuEjG8JU/pz+IHXK6GB11bWrmmE11zKVmvawWtvzZwDZnbRNqPfnnTweZcS4HWXMMBrlhDhtRPqWwKLQXXn0IzxaxngtXN0mdilBHjdJQzwmiVEeO2tCfB5LT39kjMv1MFCMU2wNWsfkQk3c+mj41YnMrn26Nhn/EsoebLgHVp1SujgtXOETOxSnmFNtyLA57X09EvOvFCHe3eYDPC5l8JFbuG1r0F/1VlDA58jsdVGWrqZW4lfA7VUf4ohE7+Uo6/pVkT4vJaOfsmZF+pgoZgm2IOtNjT5we2J/oXt7j6JAT6PhYWmMWvocP0/0m6w3Xts4lo+pc3El3LUNd2KCJ/bwvZ/RXvLuRv99oYTzlNV86/hN07j+8Tp8YOfvN56Iye4YXRcCvukcWvgnHU4HXocI+F32tR3LZw3Hc81XmFNOY86rj3o4XNbuKb/ipaDVgcLxTTBXkT4/M/EB/yYFE6+xj0L3Cs6nltEE/+MzFnTLeBhpLktgX7JmRfqYOFJqQn2ZIDvwzPASdex5Njj7nMPuC46lrkwVvWegTVjXormVhr6LQngRtMkexHg8z8DLfxYpoiZ+KOzZHxKgNd7BtaMeQkNfG7lr68NGjJOlmB870EH34cj08OP4RrPdrcd4MewlG943SPTw49hLwJ8fsu/pzgb1GccLX9fgu8IN/UA34+jUvLe80zvtgG+/0vhmt56bzsSJWtaSoTPb/lJvkuCOuN7Lzhpz3A3auH7PpceXu9o8A6p/S7lWdb03jcpFqX2wRKTrw1qM46Wf7fnO/MJ35cj0cH3eQm8+xx5E3Pd2Uft9xpefU1LGOD7YeGc/fW1QTwB1VHZevHm0sL35Qh08H0t4ah3H/apge/vFrTw+Y5AB9/XvWFdaT+UJvlrsDoqQfzvSQvfn0ey9ePT0Qp3wP7vdC2ONeat13QuAb4vFs7RP38N7jMBlij+94abaIDv1z1h/gDfty3g+H7D57w37MO9nqpefU3nEOH7ZOmt/6rgB8HN9APft3sQsf9mpv43fO57wBM9wvdpbzjmDr4/9yBi/zW9RQ/fL+3jP38N/swEKBrzKAJuD3YLuJE77PduN0WD+25k5mJO7cc9CXjtNZ1C+6ewLv/5azBPHA1QgsQ8moDTAnAhtK9r4N28xeNP4QanO+8A38e1/MbpPe7RY1QCXntNLQG+n8pFf1WAcCE1yBIzMUeBJxI3eI9lCz6MMREnjSMtquUD5/96p4cfxy0Yw/lpcZy7zC1efU0jfN8trMeLGBUgnCANvCpycMIVjrqQSwlXYKGr/7MTrvBsa8p60hqzsB4vYlSA8FTSQOXZJqZSOSKsI60thfV4EaciCQ1U2kxMpVJZRgtfW4q7QapI4icTbGG7xlQqlWV08LVl6TMxk0X7lRFQ3AlQqVQW8Qe+riysQ42ZLNomI6C0mbhKpTKPOb8dZX9EdAbDrV+16iNypVJOB19TliET8xdnMEQjMEV9RK5Uyrj1aPydifmLMxh4a1Yhpc3E7U2DY/xNjrnDyL36YXNq2xIaLOu79de2R7DVPDyK4kdj4gzCrUfkPhOzJzx9tA8x49ePbTzNrJ2+Gp/GobZEMPGEG6YTH+ZpjU9OL/lM9SHxZb7bnLoWmjPZG2OzuZJt7hymvD/ia/MGY+d3G9uPdn7yWnOSAefNmfw1F+fD9ic3D5/GRzUIx9Dgsr85Ul/3RudUGTIx/3AGgROmgkqTiduDCJ870YrvYNq40Lc0+owtEUw8uTbhyfeaXpexWeycp5xTetywzehj41NcNHZeX1tPG5f4zvglwoi9trH9aOcnrzU+kcaQ/HOkopzyyc2DQp//mbFbUl/3hPtR8yqcd437hzMIDbygEjNxezDglI+fLU55uRDJlvx0UoJpY4y1Jz6MnZvXtlEvp82cLS41u9GvN9fUsMXyf8cYG0f/ZPtvY6dWI37cwNRNtrTA6fr3eE1sDl4P43d+tmN7bg4TVlPz/qCsaKlBX/Y72Tg/yZ+52E5b6hvbPow/r7U/9Nc87eibbP8H53m29mSjPzX2xO6FKThWjfuHM2To4UUtQyZmD1K+aGydsTejLRgbSYtJGJvsU/qM17aE1f5l7GkDDuN1P15H49OJD8mNyebgNdtyfWbR0NaP18mHNBOx6Tv7m3Q6Y7ebJRh7a+wsqmS3PvyefEg/2vnJ6+QXjc9gfNSfpHlNcfxkIds8U/Ng86Q+W+2kR6ze3gw4583BvmrMBc6QoYUXVuijcVuTy8XTNtnThtOTzG7QaOxT+iHTdive5uR1P36n/7XYdG39gvilOGomH2tPmzjFEPYnlzN9b8drkptDEoyd35M9jZV5p3xIP9r5yevkFyd81J+0EqftJNnTZs/l4R7Q2BRHrN6eBJxzTpHWbhJnyPAL58eUKfpM3NakPvwYWwP/D6rTAnERtW9xtBHVT/aQabsVzxhr78fv9L8Wm66tn2p143dqJp+cXvpO0gZWn2H8brUa+DlM5PpH/zB+52fySbZEP9r5OaXVGR/1J/ZA4bprO6GeHWMuz1GKNo3hGqw3jbvAGSbo4MWVj0zclvQ452oz7erXGf/UFjO2RLKHTNuteMZYez9+p3/y6TKx6dr6TWnxM/kQxli/9D3RZHySFmlH2zWGG/7BtPO7betHOz95nfyi8bEHq/qTVGzJru2EenaMuTxDJlbj9qbBOd8UXSbO4QwTNPAJlC4TtyUBl/najA9J7da/GduitJPUluxfpk21bby109fa+/F7N7bZOPukkGxsv6XFz+RDrKbVGsZPjkN9rDZpR/sU1Ljmb/X43bb1o52fvE5+3ejLz2RjcSZ/FjLbW1z+SKZ6iTjaieZh/9PBQOg7Fbc39gCaImTiHM5whR4+idJk4rZEB95Ke2Pa7PcwtkeJJ7SxTe1E89t4a6e+tffmWkl9sTlTH65p8dPmZIz1S9/THHGzqg+5NYdKf8U/GDu/5+L4yWurYWFhNsY/B3OqXiIav2t5OB+/rsTtCfOmA2gK9k/jsjjDFVr4RAo3hMZtTYfLnK1pC8bO6378HsdrfmqfU5vak4bFxlv7VF7LAP/uqH24psVPG8sY62e1UkwnPglrJ620W7jh7N2KpHEEY+N3G9ePdn7y2sYnqPsh/pYB5x9mVC8Rjf9UHtLciNuTCN8fpc3EZXGGGwzwySw8TexpthcdLvOmhY/jdTq1fsZrftp2oprJHjJtial4xlh7P36nv2pYUoz1m9Lip41ljPWzWtzo/M71yPWXdKaNMK/6JLRwqduMMVPx/WjnJ69t/1Q/569MtcfRnsZo87Df6TodNFNxe8E+2HXIwXaNm8QZbtDCJ1RiJm4POpxzpqJMNm6wINdsjyZG9ZKdcdqWmIpnjLX343f6q4YlN2dTWvy0sYyxflarMde5/iY60676ihYuY4O55nfrTz2ra/un2jl/Zao9jvY0Rs2T+tzdiNuLiHOeKeijcZM4ww3mnhr009i1ULPF5WOO3US6qRT6R7m2JHvItCWm4hlj7f34nf6qYUkx1k+1eCDxOzVtLGOsn2rpXNCWm0PqJh9dN/p9GX+2D6Mv1/nDxAaJTbr85LX2T1F/Zao9jvY0Rs3zPV4PN+L2gPPFeUp5crBd5/0qzjCDCJ9Y4URp3FqSNjdRsn0aezDfc3CDRXM9pU8dbUtMxdt+8Lofv9NfNSwpxvoFY+c12/idmjY22YfxWrVSu9VSH6JzmOz8nrOnIlBN60P60d6JXxQ/9eentpGUV9uj2DWPHV+TiUvj2IOIc44pukzcVZxhBnNOD9JkYteQG2Qw9v9lvtPOdvY12VpcXyiNzUGNXHzS5bzwuh+vaVcNS9KyfsHYrfYgsbqJVYuHVLIlrfS9G681H78ne2Ps9qC0/rm8iUHsU36Jfmznp7YRxrH9t9g7idM8ugdUL41ja3arE2eYSYRPrnSZuDX0OOlyIjghtLWjjfxv870xcWni4kjyUf1kD5m2hC0EatHW4Pwo+jPaevGZQrVIMHZef5prttHW4FwU3WjLaSWfpMX+8budw5y+xvMz+VPfavYZH+okH+rTluufJenwU9tIO7bbfjY49/F7tOXypPXpjI3tdhxbE3HWn6LLxN3EGWbCxUnFcA1uco0tpcVZd8BpA6Y+8DOa7zauH+38TD5E9ZO9G/0SjfgNxpff7Ty0o08/XjPexiopzvoFY082myNtwAT9p7S4ka1Wa64H+DlMcQlqqX+67kcf1aTdav4a/XL9szDO6irUuTYPH6NfLk+ah8HY2J58NddaGlz2bQr6aexNnGEBEb4TSp+JW0MPn4O0po2fNsYuWDQxqq2aiSB+3Bx28yS4odMGTX1hPs2Ty2n9grEnW2tsls74zNXqjc3CHMknwfFocSRSkZApH6uZbNHYLP3Yzk9tS7Sjj9IZn1yeYOyp32xPNs2zFu4F7aPCfalxs3CGBXBBc5tX+czEruELp4UlnJww2jkJtLHd+jN/8m/Nd+tDkl2xmzNBW8rHPmjO1NZmYi30UT9qJ7v15TiSbgefM6dl7dY2NYc5fuG0wZN/h/ycWE36BGlPbW0mlqSx8VPbLGvngfG8ZnuyWb+1BPgaUP5g4S/GFmdYSAvfIWXAig5WKk/Gb/gaUGImbjbOUMAA3yklZuIqlVcjwu99ZcDKm5gzFBDgO5Yj90hVqbwKDea9LraZ2EU4QyE9fOcUPjZoXKXyKvTwe16hj8YtxhkKaeA7mCNmYiuVZ6eF3+s5NnnadIYVRPhO5tik45XKQWgw77H41q/is3GGlQzwnVXqY3Lllejh97iy6k88ijOsJMB3OEfMxFYqz8YX/N7O8ZmJLcYZNoCPAdrpHCETW6k8C3zN0z2d4ycTuwpn2AA+BgzwnVc2fWSoVO4I9y1f83RPK7vscWfYiAA/gBx9JrZSOTod/F7OseljccIZNmTuY3LMxFYqR6WF38M5Nn8sTjjDxsx5hCC7nEiVysbMfY8dsMNjccIZNoaD5HO9DkqhD301vlI5CizCOXuZhEz8ZjjDDrTwg8oxYMfTqVJZAffl3KfGmInfFGfYiQ5+cDk4MbVwr8NXiTjS4nSqT/FlfBMdzv8dKeF1A5+ncqaD36s5+kzs5jjDTiw5qbpM/LvD+YuY/3i2lB4+Z+VEBz9fOQbc6YbjDDvSYP6m6zLx70qL+fN2Cx6cPU6/bEZcbsgP+NzvTgs/hzm4PnebP2fYmQA/4CliJv6d4KnN4rJz0mPbHzm40ZL23Tbdk9DC78kp6Kvxu+EMd6CFH/QU9NX4d0BfJwZsW6yJiHMObXtnWvi9OMV3Jn5XnOFOdPCDn6LNxL8yWrC829Kmfltg77RNpv0daeH34BRdJn53nOGO6KPfNdpM/CvCIrIF22V8tqTBOVfItL8bLfzem4LrtNdhehVnuCN6R7lFK/GvBgv2D87jvcdjV8A5n7a9Gy38npviYQVLnOHOLC3cL4l/FbRg24zPHnA+ma/PtL0TLfxem4LrxPVSjbvhDA9gaeF2Ev/scPypYPkZMj57EvHAu8YBaOH32BQPL1jiDA9C7zS36CT+mUl3OxIy7ZX9sHN/i0MULHGGB7K0cHl3foU7RIfTePpM21ZwniJOOb6RPxy4gX/g/6826M+4Keiv8a2JJw3O/5gjSBvXPeWgz70Ko4PfU1NwX96rXzdxhgfDieEE6aRN8XuMUZ1nocV5LPyu7VsR4DfhL/HRuU32PtOmUGvI2JIGizKnTTpp+5T2rWG/evgxTHGogiXOcAA4QQP85E3BSd17offgC5dj0PYtCfDz1omPtid7n2lT6Ec9a2tHO+HhatvYn9TGsds2PUy2hHtL+3KNwxUscYaDwIVbMrkkmvgj0+CyEDjOvTdGgJ8vQnvy0bZk78Xe4fK/GmpHP36q35Q2DyzaOW5rZ64UszU82PWAuMYhC5Y4w4EoKdx+jFOtoxBxuXE4vnv0N8DPVcqffLQt2XuxU0v1Ccdh/YbRnsv9M7axeK09FfPWRPg+XOOwBUuc4WBwI3CBdVKvwQkPY/yR0HHEjM9eBPh5SqRCUXuK7TP+1CO6sXkIWN8G+YIZRn/VVr21cP/08PmvwTEwTrUOgzMclA5+cm/xbeIfTYdzv3rc/9/5Bvj5SfCQ4yZVe4rtM20JbnCbh3Nu21ngU/EsUHvNfmi/1/CJZY/D5PAFS5zhwLTwk3wLLgI3h2rdmw6n/vzgtJHvvTECLuell+tOrkmKVV+LFprm4Xg1JqE5ea39LoFzq4fHHLox/vA4w8EJWH56koj7F4qFp77tT5/x2ZMAPx/XCoqk2F7sPAhpIywOzWV9da1Uy9KO8WsIWPaXhwQPUtU6LM7wBDTw70634OZhnGrdkwGXfbrnIRJwmTvi9v+SSIrtxU4t1bdMHQZcMxaH2hPsj2rNhXPJA0Q1b8Hx80BVvUPjDE8CF6mDX4QpjnKStjj36SPTvhcBl/MRRzs/da4SKbYXO7VU3zJVmCwqjlnthAWtOnNh0Q3wmrdgznuuwWY4w5PR4vrdgvSZuEfAg2bAqU/81PY9Cbick2jaBmlLpPZe7NRSfctUYbZju9oJC1p15tLD692iw32fdDbFGZ4QbhKemrowiaOcphHnPoVM+54EXM5JvNKWSO19pk2hhs03ZHyasS2np/FLmDokcvCAbyX+6XCGJybCLxJt6vcoepz6xE9t25uA6/PyI+0ktfWZNkX1OmkfTBt9Nd7GlsA7tWoqPNibTOzT4QxPjr3rDjjWI1AqDH5q297o3ehL2htcvmYMpq2X2Byfxp/w2rZ3pk37YttK4Trb/isxE/O0OMOLELHukWsPIk4biJtL2yrraeGLlQc4Dwn1fWqcobIbLc6bSdsq29DjfDDGTPtL4AyVzWng/zmf+lS2gXdVvn40mbaXwRkqm9Ih/8imfnvS4HTX6cbP3OMi30HZ/g3/vhtGe2+gL2NUh1A/4lQ8GtPC/87QjP5s56f2j/5Jj59Ted8GZ6hsAjcaizMV6oDTxo1jm/rvScD1Q0Pbh9HOfvbSplBLi0x9lD8SE6Wd11ZP+8Dite1vhzO8MNyEPKUj/F3A0uH8n5+pxhwaXP6SSb17F6rS43Ljt1faOEe020PnGhyrHZ+252BMM/pHaeN10uI62LYBj5/Lh+MMLwYXuEX+75Bz6XB7owScHiF1o3PTqe8jaHDZr2G0s0CtvR/tWixpHgJ8kaW2lEvbmKOF/5NMmhvV4zXtH2InzJ/yvC3O8EJE+I1CaOtxKjL6dOaa37XwyDD65NpyMEcL36dH0uGyjy38v1wKo6+OM472BGN1vKlN52IqJmnyM2fXPnB9bB/eFmd4EVpcLjg3AE92nt7qO0XAsjs0N26HU54GXu/R/MLlIWa/k8746tgYq3qD+ISJ2OTfij2Odn6qnQVqbVw/zf+2OMOLEHFa7AHLCjVHi/MGZRHzOox8Yvlh8EgifFElmtEniL038ZZO/BhHu+rS3sIfErTRP4qd+VTjWeb3LjjDi8BC4mIPqO9BFt4xB/ii4J0t+QRp602bJYofr2lX7Rws4HT3Vh1lKv/b4gwvQsDlwvOOqD7vSovpAiJB2nuJT0Txoy7tWnQK89k7p+roHdlqV/7H6xYtN2GH812lz/i8KwGXBdFLOwvKtg/SnmCc9aMu7VpwWoTd6JeI0s5r1aZGI3FvizO8GB1Oi/6TaXtXAi4Los/4aKExxrbzULTtpBnbcvZrelHaeJ2L6U3MW+MML0aP04J3mbZ3JeB2MXTi8xvnomTB8lrbU6y1E9qi2GxObeM17a3YyZeJe1uc4cXocFrsIdP2rgRMF1BCH5Gtr94ByaeJ1TbaWOiD2NuxLYqd10mLT0i2jbnZN+3vW+EMLwY3U1rwt1/skYDLQugzPqQVvyk6idP2Kb0Bp2KOYud1iskVu72rvyXO8ELoY1zI+LwjPLzs3ZJ3M/VJBPgfhWzx2DtsYjA+zGPbrFaKb42NfEkM+2D7y++5vG+DM7wI3JgDLjeI+lTmwwMwGHitPpU74QwvAos0Few36iarvBDO8AKwSFPBtpn2SuWpcYYnpsHlO9NPxufdaXD+xwsJzhPfI9mW/OgzFxtHqJXaWmmjr8ZPkd5tQ6ZNaUbft8AZnpQWlz9W8PG4PhJf0uLyB58c/C2AqP0a1E05Qqa9Me0sRG2/BmNjxq7YPrw8zvCEtLhcwJjxeXcC/EbPQb8mY7/GJ855ukw7X1dS+9Ki5cEbM3alhR/zy+IMTwQXlBsiLRzvrk3Gr+KL6QenYiNs41MKSU8n0aCxvbSnGH5SQwtqGNtJI7Fss77MldpY4Izh92v5SerDW+AMT0KA/5POWy3cQnpcbvwg7Zy7JhNH6GtjY8aHtOJn4eGg/qQXP+ZSnyg+vFaft8IZngBuALuIPWrB3qLH5Zzxjthh3r8SCxIbMz6EB6f1s/xk/EkvfsylPlF8utEvof4vjzM8AT1Oi8dNEjLtFc83fCElhrG9ycSRIP4x48Pitz5cG+paW06/Fx/mUp8oPkpO96Vxhiegx2mxYqatkqdB/n3TwvaQiaXN+sWMTyc+LfxBkYvrxYe51Idx2tdbMS+NMzwBPaY3QWUa3g17+E1vYeHqq0YQnyjtRA8EajRiGzJx2h/mUp8oPtRhXEL7+/I4wxPQY3rzVG7T4PTLLB9hbTFMFQ6vbXuU9lbaWcD9yC1t9dF2EsWH1+rzVjjDE6CPXa8IC6rD9K+uJTQZG+++epdsxSdIe5T2Xtqv0d2IZS7bTpjvWv63wxmeAG403QyvDO+KOgdL4SMki7ODL4wfXObTdl7b9mjaGmmbg32c7aVNcxPmsz42/1viDE9Cg/M/DggvRIvTpuTTxIDzRu0x788zU7S43PjpEXbI2G1RkSA+0bSxn7aN1/S36KFgDyH2wbbR3+YmzGd9cnSZuJfFGSqHgcXzG5ebUwtqLlo4U7SZ2CA+0bQN0tZk4nnYWB+OKbX10sZcGh/FJwd1NO5lcYbK4eCdiXdAbs420z4X6gzwG56wkD4zMUSLLt0paU/9Il0mNtEbP8Y0o50xVpuaGhvFJ8e13C+HM1QOyTe225y8WwdDk/GpHBhnqBySFue7lLaV0qD8cbvyQJyhckgCzo+C2lZCg/OPUdpWOTjOUDkk9r0yZNqXwvfXLQ+Byh1xhsphGXB+RM79YLOEiJNWn2mrHBxnqBwW/RX3N8p/TY6oRfu0OEPl0LTw/2PgTcbvFj9jfJdpqxwcZ6g8BXwnHXC+4y59XO7H2JhpqxwcZ6g8DRGXj8v8W+7cP+HQtz4ePynOUHkqIi4Ld8D0v2yyfJmYJtNeOTDOUHk6Gvh/Dsh31qm7Lh+le+MbMj6VA+MMlaclwP9IxTuq9WlNe8njMQs+4qS79D26shHOUHlqeHdN76u2MNNdl3fgqYKegsVJzWGMtfzGST8RMvGVjXGGykvAQmNB2btug/O77GB8w2hnYfYC47RQU7zaVLeyE85QeSlSkZKIy3dffp8qyhy8S7c43bWJPRSspvahsjHOUHk5Ik4FdatA+xH6Wz5xLlQeAixejSW8U9NH81c2xhkqLweLSQuMDGNbyMRYGvhfpxO827KQ6aNxlZ1whsrL0cMXa5vxS3zgVIgxE0tos4VKv/8er8Noq+yIM1RejlRsEfmi4uNvh1MxDsZfoU+TiaduO8YTba9sjDNUXgq+Y6aiC+M1P9O76R/TrvQjtx5/2xE+avNT2ysb4wyVl4KFmYrwWoGyrcP03bhyIJyh8lJcK9Qep7sj32E1rnJgnKHyUnS4LNAWtUifnv8PB00kwV5YyeMAAAAASUVORK5CYII="
 };
 
-function getSig1(name, title, phone, fax, linkedin) {
+function getSig1(name, title, phone, fax, linkedin, withLinks = true) {
   return `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:13px;color:#222222;background-color:#ffffff;color-scheme:light;">
   <tr>
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
-      <p style="margin:0 0 1px 0;font-size:14.67px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
-      <p style="margin:0 0 6px 0;font-size:14.67px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
-      <p style="margin:0 0 1px 0;font-size:13.33px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
-      ${fax ? '<p style="margin:0 0 8px 0;font-size:13.33px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
-      <table cellpadding="0" cellspacing="0" border="0"><tr>
+      <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
+      <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
+      <p style="margin:0 0 1px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
+      ${fax ? '<p style="margin:0 0 4px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
+      ${withLinks ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;">
           <a href="${linkedin}" style="text-decoration:none;display:block;">
             <img src="${imgs.IMG_LINKEDIN}" width="22" height="22" alt="LinkedIn" style="display:block;border:0;">
           </a>
         </td>
         <td style="vertical-align:middle;">
-          <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:13.33px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
+          <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:15px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
         </td>
-      </tr></table></td>
+      </tr></table>` : ''}
+</td>
     <td style="padding-left:16px;vertical-align:middle;"><a href="https://elmandoakhealth.com" style="text-decoration:none;display:block;">
         <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
       </a>
@@ -148,24 +149,25 @@ function getSig1(name, title, phone, fax, linkedin) {
 </table>`;
 }
 
-function getSig2(name, title, phone, fax, linkedin) {
+function getSig2(name, title, phone, fax, linkedin, withLinks = true) {
   return `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:13px;color:#222222;background-color:#ffffff;color-scheme:light;">
   <tr>
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
-      <p style="margin:0 0 1px 0;font-size:14.67px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
-      <p style="margin:0 0 6px 0;font-size:14.67px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
-      <p style="margin:0 0 1px 0;font-size:13.33px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
-      ${fax ? '<p style="margin:0 0 8px 0;font-size:13.33px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
-      <table cellpadding="0" cellspacing="0" border="0"><tr>
+      <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
+      <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
+      <p style="margin:0 0 1px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
+      ${fax ? '<p style="margin:0 0 4px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
+      ${withLinks ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;">
           <a href="${linkedin}" style="text-decoration:none;display:block;">
             <img src="${imgs.IMG_LINKEDIN}" width="22" height="22" alt="LinkedIn" style="display:block;border:0;">
           </a>
         </td>
         <td style="vertical-align:middle;">
-          <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:13.33px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
+          <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:15px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
         </td>
-      </tr></table></td>
+      </tr></table>` : ''}
+</td>
     <td style="padding-left:16px;vertical-align:middle;padding-right:14px;"><a href="https://elmandoakhealth.com" style="text-decoration:none;display:block;">
         <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
       </a>
@@ -182,24 +184,25 @@ function getSig2(name, title, phone, fax, linkedin) {
 </table>`;
 }
 
-function getSig3(name, title, phone, fax, linkedin) {
+function getSig3(name, title, phone, fax, linkedin, withLinks = true) {
   return `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:13px;color:#222222;background-color:#ffffff;color-scheme:light;">
   <tr>
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
-      <p style="margin:0 0 1px 0;font-size:14.67px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
-      <p style="margin:0 0 6px 0;font-size:14.67px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
-      <p style="margin:0 0 1px 0;font-size:13.33px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
-      ${fax ? '<p style="margin:0 0 8px 0;font-size:13.33px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
-      <table cellpadding="0" cellspacing="0" border="0"><tr>
+      <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
+      <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
+      <p style="margin:0 0 1px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
+      ${fax ? '<p style="margin:0 0 4px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
+      ${withLinks ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;">
           <a href="${linkedin}" style="text-decoration:none;display:block;">
             <img src="${imgs.IMG_LINKEDIN}" width="22" height="22" alt="LinkedIn" style="display:block;border:0;">
           </a>
         </td>
         <td style="vertical-align:middle;">
-          <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:13.33px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
+          <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:15px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
         </td>
-      </tr></table></td>
+      </tr></table>` : ''}
+</td>
     <td style="padding-left:16px;vertical-align:middle;padding-right:14px;"><a href="https://elmandoakhealth.com" style="text-decoration:none;display:block;">
         <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
       </a>
@@ -245,107 +248,82 @@ function updateAll() {
   setFrame('preview3', getSig3(name, title, phone, fax, linkedin));
 }
 
-// ── Contact column HTML (stays as HTML so links are clickable) ─────────────────
-function getContactHtml(name, title, phone, fax, linkedin) {
-  return `
-    <p style="margin:0 0 2px 0;font-size:16px;font-weight:bold;color:#002351;font-family:Georgia,serif;mso-color-alt:#002351;">${name}</p>
-    <p style="margin:0 0 8px 0;font-size:15px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;mso-color-alt:#0e5b1a;">${title}</p>
-    <p style="margin:0 0 2px 0;font-size:14px;color:#182951;font-family:Arial,sans-serif;mso-color-alt:#182951;">p: ${phone}</p>
-    ${fax ? '<p style="margin:0 0 8px 0;font-size:14px;color:#182951;font-family:Arial,sans-serif;mso-color-alt:#182951;">f: ' + fax + '</p>' : ''}
-    <table cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;"><tr>
-      <td style="padding-right:6px;vertical-align:middle;">
-        <a href="${linkedin}" style="text-decoration:none;display:block;">
-          <img src="${imgs.IMG_LINKEDIN}" width="22" height="22" alt="LinkedIn" style="display:block;border:0;">
-        </a>
-      </td>
-      <td style="vertical-align:middle;">
-        <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:14px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
-      </td>
-    </tr></table>`;
-}
-
-// ── Logo columns HTML (rendered to PNG to resist dark mode) ────────────────────
-function getLogosHtml1() {
-  return `<table cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
-    <tr>
-      <td style="padding:0 16px 0 0;vertical-align:middle;">
-        <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
-        <p style="margin:4px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Where Healthcare Gets Human</p>
-        <p style="margin:2px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Formerly Known As Monroe Plan for Medical Care</p>
-      </td>
-      <td style="padding-left:14px;vertical-align:middle;">
-        <img src="${imgs.IMG_BADGE}" width="120" height="37" alt="Certified Amazing Workplace 2026" style="display:block;border:0;">
-      </td>
-    </tr>
-  </table>`;
-}
-
-function getLogosHtml2() {
-  return `<table cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
-    <tr>
-      <td style="padding:0 16px 0 0;vertical-align:middle;">
-        <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
-        <p style="margin:4px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Where Healthcare Gets Human</p>
-        <p style="margin:2px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Formerly Known As Monroe Plan for Medical Care</p>
-      </td>
-      <td style="padding:0 14px;vertical-align:middle;">
-        <img src="${imgs.IMG_AMIDA}" width="110" height="52" alt="Amida Care" style="display:block;border:0;">
-      </td>
-      <td style="padding-left:14px;vertical-align:middle;">
-        <img src="${imgs.IMG_BADGE}" width="120" height="37" alt="Certified Amazing Workplace 2026" style="display:block;border:0;">
-      </td>
-    </tr>
-  </table>`;
-}
-
-function getLogosHtml3() {
-  return `<table cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
-    <tr>
-      <td style="padding:0 16px 0 0;vertical-align:middle;">
-        <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
-        <p style="margin:4px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Where Healthcare Gets Human</p>
-        <p style="margin:2px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Formerly Known As Monroe Plan for Medical Care</p>
-      </td>
-      <td style="padding:0 14px;vertical-align:middle;">
-        <img src="${imgs.IMG_SOS}" width="100" height="100" alt="SOS" style="display:block;border:0;">
-      </td>
-      <td style="padding-left:14px;vertical-align:middle;">
-        <img src="${imgs.IMG_BADGE}" width="120" height="37" alt="Certified Amazing Workplace 2026" style="display:block;border:0;">
-      </td>
-    </tr>
-  </table>`;
-}
-
-// ── Build hybrid HTML (HTML contact + PNG logos) ───────────────────────────────
-async function buildHybridHtml(variant, name, title, phone, fax, linkedin) {
-  const logosFns = { 1: getLogosHtml1, 2: getLogosHtml2, 3: getLogosHtml3 };
+// ── Build full-image signature with clickable link row below ──────────────────
+async function buildImgSig(variant, name, title, phone, fax, linkedin) {
+  const sigFns = { 1: getSig1, 2: getSig2, 3: getSig3 };
   const renderDiv = document.getElementById('sig-render');
-  renderDiv.innerHTML = logosFns[variant]();
 
-  const canvas = await html2canvas(renderDiv, {
-    backgroundColor: '#ffffff', scale: 2, useCORS: true, logging: false
-  });
+  // Render the full signature WITH links baked in as one JPEG
+  renderDiv.style.display = 'inline-block';
+  renderDiv.innerHTML = sigFns[variant](name, title, phone, fax, linkedin, true);
+  await new Promise(r => setTimeout(r, 500));
+
+  const canvas = await html2canvas(renderDiv, { backgroundColor: '#ffffff', scale: 1, logging: false });
+  renderDiv.style.display = 'none';
   renderDiv.innerHTML = '';
 
-  const display = document.createElement('canvas');
-  display.width  = Math.round(canvas.width  / 2);
-  display.height = Math.round(canvas.height / 2);
-  const ctx = display.getContext('2d');
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-  ctx.drawImage(canvas, 0, 0, display.width, display.height);
-  const logosPng = display.toDataURL('image/png');
+  const imgW    = canvas.width;
+  const imgH    = canvas.height;
+  const jpegUrl = canvas.toDataURL('image/jpeg', 0.92);
 
-  return `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="font-family:Arial,sans-serif;background:#ffffff;">
-    <tr>
-      <td bgcolor="#ffffff" style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;background-color:#ffffff;">
-        ${getContactHtml(name, title, phone, fax, linkedin)}
-      </td>
-      <td bgcolor="#ffffff" style="padding-left:16px;vertical-align:middle;background-color:#ffffff;">
-        <img src="${logosPng}" width="${display.width}" height="${display.height}" style="display:block;border:0;" alt="Elm &amp; Oak Health">
-      </td>
-    </tr>
-  </table>`;
+  // Single JPEG — entire image is one click to the website.
+  // LinkedIn icon and URL are visible inside the image itself.
+  // No separate rows = no dark mode artifacts, no white boxes.
+  return `<a href="http://www.elmandoakhealth.com/" style="text-decoration:none;display:block;">` +
+    `<img src="${jpegUrl}" width="${imgW}" height="${imgH}" border="0" style="display:block;border:0;" alt="Email Signature">` +
+  `</a>`;
+}
+
+// ── Clipboard helper ──────────────────────────────────────────────────────────
+// Intercept the native copy event so we can inject arbitrary HTML into the
+// clipboard without needing HTTPS or ClipboardItem permissions.
+// This works from file://, localhost, and HTTPS alike.
+let _pendingClipHtml = null;
+document.addEventListener('copy', function (e) {
+  if (_pendingClipHtml !== null) {
+    e.preventDefault();
+    e.clipboardData.setData('text/html',  _pendingClipHtml);
+    e.clipboardData.setData('text/plain', '');
+    _pendingClipHtml = null;
+  }
+});
+
+function writeHtmlToClipboard(html) {
+  return new Promise((resolve, reject) => {
+    // Method A: ClipboardItem API (HTTPS / GitHub Pages)
+    if (navigator.clipboard && window.ClipboardItem) {
+      const blob = new Blob([html], { type: 'text/html' });
+      navigator.clipboard.write([new ClipboardItem({ 'text/html': blob })])
+        .then(resolve)
+        .catch(() => {
+          // Method B: copy-event intercept (file://, http://, any origin)
+          _pendingClipHtml = html;
+          const ta = document.createElement('textarea');
+          ta.value = '\u00a0'; // non-breaking space — gives browser something to copy
+          ta.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;pointer-events:none;';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          const ok = document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (ok || _pendingClipHtml === null) { resolve(); }
+          else { _pendingClipHtml = null; reject(new Error('execCommand copy failed')); }
+        });
+    } else {
+      // Method B directly (no ClipboardItem support)
+      _pendingClipHtml = html;
+      const ta = document.createElement('textarea');
+      ta.value = '\u00a0';
+      ta.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;pointer-events:none;';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      const ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok || _pendingClipHtml === null) { resolve(); }
+      else { _pendingClipHtml = null; reject(new Error('execCommand copy failed')); }
+    }
+  });
 }
 
 async function copySig(variant) {
@@ -362,10 +340,11 @@ async function copySig(variant) {
   btn.innerHTML = COPY_ICON + ' Rendering...';
 
   try {
-    const hybridHtml = await buildHybridHtml(variant, name, title, phone, fax, linkedin);
-    const fullHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body bgcolor="#ffffff">' + hybridHtml + '</body></html>';
-    const blob = new Blob([fullHtml], { type: 'text/html' });
-    await navigator.clipboard.write([new ClipboardItem({ 'text/html': blob })]);
+    const sigHtml = await buildImgSig(variant, name, title, phone, fax, linkedin);
+    const fullHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body bgcolor="#ffffff">' + sigHtml + '</body></html>';
+
+    await writeHtmlToClipboard(fullHtml);
+
     btn.disabled = false;
     btn.classList.add('copied');
     btn.innerHTML = CHECK_ICON + ' Copied!';
