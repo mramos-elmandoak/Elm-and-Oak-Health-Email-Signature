@@ -245,14 +245,115 @@ function updateAll() {
   setFrame('preview3', getSig3(name, title, phone, fax, linkedin));
 }
 
+// ── Contact column HTML (stays as HTML so links are clickable) ─────────────────
+function getContactHtml(name, title, phone, fax, linkedin) {
+  return `
+    <p style="margin:0 0 2px 0;font-size:16px;font-weight:bold;color:#002351;font-family:Georgia,serif;mso-color-alt:#002351;">${name}</p>
+    <p style="margin:0 0 8px 0;font-size:15px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;mso-color-alt:#0e5b1a;">${title}</p>
+    <p style="margin:0 0 2px 0;font-size:14px;color:#182951;font-family:Arial,sans-serif;mso-color-alt:#182951;">p: ${phone}</p>
+    ${fax ? '<p style="margin:0 0 8px 0;font-size:14px;color:#182951;font-family:Arial,sans-serif;mso-color-alt:#182951;">f: ' + fax + '</p>' : ''}
+    <table cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;"><tr>
+      <td style="padding-right:6px;vertical-align:middle;">
+        <a href="${linkedin}" style="text-decoration:none;display:block;">
+          <img src="${imgs.IMG_LINKEDIN}" width="22" height="22" alt="LinkedIn" style="display:block;border:0;">
+        </a>
+      </td>
+      <td style="vertical-align:middle;">
+        <a href="http://www.elmandoakhealth.com/" style="color:#0563C1;font-size:14px;font-family:Arial,sans-serif;text-decoration:underline;">www.elmandoakhealth.com</a>
+      </td>
+    </tr></table>`;
+}
+
+// ── Logo columns HTML (rendered to PNG to resist dark mode) ────────────────────
+function getLogosHtml1() {
+  return `<table cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
+    <tr>
+      <td style="padding:0 16px 0 0;vertical-align:middle;">
+        <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
+        <p style="margin:4px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Where Healthcare Gets Human</p>
+        <p style="margin:2px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Formerly Known As Monroe Plan for Medical Care</p>
+      </td>
+      <td style="padding-left:14px;vertical-align:middle;">
+        <img src="${imgs.IMG_BADGE}" width="120" height="37" alt="Certified Amazing Workplace 2026" style="display:block;border:0;">
+      </td>
+    </tr>
+  </table>`;
+}
+
+function getLogosHtml2() {
+  return `<table cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
+    <tr>
+      <td style="padding:0 16px 0 0;vertical-align:middle;">
+        <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
+        <p style="margin:4px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Where Healthcare Gets Human</p>
+        <p style="margin:2px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Formerly Known As Monroe Plan for Medical Care</p>
+      </td>
+      <td style="padding:0 14px;vertical-align:middle;">
+        <img src="${imgs.IMG_AMIDA}" width="110" height="52" alt="Amida Care" style="display:block;border:0;">
+      </td>
+      <td style="padding-left:14px;vertical-align:middle;">
+        <img src="${imgs.IMG_BADGE}" width="120" height="37" alt="Certified Amazing Workplace 2026" style="display:block;border:0;">
+      </td>
+    </tr>
+  </table>`;
+}
+
+function getLogosHtml3() {
+  return `<table cellpadding="0" cellspacing="0" border="0" style="background:#ffffff;">
+    <tr>
+      <td style="padding:0 16px 0 0;vertical-align:middle;">
+        <img src="${imgs.IMG_ELMOAK}" width="148" height="70" alt="Elm &amp; Oak Health" style="display:block;border:0;">
+        <p style="margin:4px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Where Healthcare Gets Human</p>
+        <p style="margin:2px 0 0 0;font-size:9.5px;font-style:italic;color:#555555;font-family:Arial,sans-serif;">Formerly Known As Monroe Plan for Medical Care</p>
+      </td>
+      <td style="padding:0 14px;vertical-align:middle;">
+        <img src="${imgs.IMG_SOS}" width="100" height="100" alt="SOS" style="display:block;border:0;">
+      </td>
+      <td style="padding-left:14px;vertical-align:middle;">
+        <img src="${imgs.IMG_BADGE}" width="120" height="37" alt="Certified Amazing Workplace 2026" style="display:block;border:0;">
+      </td>
+    </tr>
+  </table>`;
+}
+
+// ── Build hybrid HTML (HTML contact + PNG logos) ───────────────────────────────
+async function buildHybridHtml(variant, name, title, phone, fax, linkedin) {
+  const logosFns = { 1: getLogosHtml1, 2: getLogosHtml2, 3: getLogosHtml3 };
+  const renderDiv = document.getElementById('sig-render');
+  renderDiv.innerHTML = logosFns[variant]();
+
+  const canvas = await html2canvas(renderDiv, {
+    backgroundColor: '#ffffff', scale: 2, useCORS: true, logging: false
+  });
+  renderDiv.innerHTML = '';
+
+  const display = document.createElement('canvas');
+  display.width  = Math.round(canvas.width  / 2);
+  display.height = Math.round(canvas.height / 2);
+  const ctx = display.getContext('2d');
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(canvas, 0, 0, display.width, display.height);
+  const logosPng = display.toDataURL('image/png');
+
+  return `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="font-family:Arial,sans-serif;background:#ffffff;">
+    <tr>
+      <td bgcolor="#ffffff" style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;background-color:#ffffff;">
+        ${getContactHtml(name, title, phone, fax, linkedin)}
+      </td>
+      <td bgcolor="#ffffff" style="padding-left:16px;vertical-align:middle;background-color:#ffffff;">
+        <img src="${logosPng}" width="${display.width}" height="${display.height}" style="display:block;border:0;" alt="Elm &amp; Oak Health">
+      </td>
+    </tr>
+  </table>`;
+}
+
 async function copySig(variant) {
   const name     = document.getElementById('inp-name').value    || 'Your Name';
   const title    = document.getElementById('inp-title').value   || 'Your Title';
   const phone    = document.getElementById('inp-phone').value   || '000-000-0000';
   const fax      = document.getElementById('inp-fax').value;
   const linkedin = document.getElementById('inp-linkedin').value || 'https://www.linkedin.com/company/monroe-plan-for-medical-care';
-  const sigFns   = { 1: getSig1, 2: getSig2, 3: getSig3 };
-  const html     = sigFns[variant](name, title, phone, fax, linkedin);
   const btn      = document.getElementById('btn' + variant);
   const COPY_ICON  = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
   const CHECK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -261,52 +362,22 @@ async function copySig(variant) {
   btn.innerHTML = COPY_ICON + ' Rendering...';
 
   try {
-    // Render signature into hidden off-screen div
-    const renderDiv = document.getElementById('sig-render');
-    renderDiv.innerHTML = html;
-
-    // Use html2canvas to capture as PNG
-    const canvas = await html2canvas(renderDiv, {
-      backgroundColor: '#ffffff',
-      scale: 2,
-      useCORS: true,
-      logging: false
-    });
-    renderDiv.innerHTML = '';
-
-    // Resize canvas back to 1x so Outlook displays it at natural size
-    const display = document.createElement('canvas');
-    display.width  = Math.round(canvas.width  / 2);
-    display.height = Math.round(canvas.height / 2);
-    const ctx = display.getContext('2d');
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(canvas, 0, 0, display.width, display.height);
-
-    // Copy PNG to clipboard
-    display.toBlob(async (pngBlob) => {
-      try {
-        await navigator.clipboard.write([new ClipboardItem({ 'image/png': pngBlob })]);
-        btn.disabled = false;
-        btn.classList.add('copied');
-        btn.innerHTML = CHECK_ICON + ' Copied!';
-        setTimeout(() => {
-          btn.classList.remove('copied');
-          btn.innerHTML = COPY_ICON + ' Copy Signature';
-        }, 2500);
-      } catch (err) {
-        btn.disabled = false;
-        btn.innerHTML = COPY_ICON + ' Copy Signature';
-        alert('Copy failed — please allow clipboard access in your browser and try again.');
-        console.error('Clipboard write error:', err);
-      }
-    }, 'image/png');
-
+    const hybridHtml = await buildHybridHtml(variant, name, title, phone, fax, linkedin);
+    const fullHtml = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body bgcolor="#ffffff">' + hybridHtml + '</body></html>';
+    const blob = new Blob([fullHtml], { type: 'text/html' });
+    await navigator.clipboard.write([new ClipboardItem({ 'text/html': blob })]);
+    btn.disabled = false;
+    btn.classList.add('copied');
+    btn.innerHTML = CHECK_ICON + ' Copied!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = COPY_ICON + ' Copy Signature';
+    }, 2500);
   } catch (err) {
     btn.disabled = false;
     btn.innerHTML = COPY_ICON + ' Copy Signature';
-    alert('Rendering failed: ' + err.message);
-    console.error('html2canvas error:', err);
+    alert('Copy failed: ' + err.message);
+    console.error('Copy error:', err);
   }
 }
 
