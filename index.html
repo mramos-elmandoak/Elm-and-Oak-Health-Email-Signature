@@ -123,8 +123,14 @@ function getSig1(name, title, phone, fax, linkedin, withLinks = true) {
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
       <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
       <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
-      <p style="margin:0 0 1px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
-      ${fax ? '<p style="margin:0 0 4px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
+        <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_PHONE}" width="13" height="13" style="display:block;border:0;" alt=""></td>
+        <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${phone}</td>
+      </tr></table>
+      ${fax ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;"><tr>
+        <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_FAX}" width="13" height="13" style="display:block;border:0;" alt=""></td>
+        <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${fax}</td>
+      </tr></table>` : ''}
       ${withLinks ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;">
           <a href="${linkedin}" style="text-decoration:none;display:block;">
@@ -155,8 +161,14 @@ function getSig2(name, title, phone, fax, linkedin, withLinks = true) {
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
       <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
       <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
-      <p style="margin:0 0 1px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
-      ${fax ? '<p style="margin:0 0 4px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
+        <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_PHONE}" width="13" height="13" style="display:block;border:0;" alt=""></td>
+        <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${phone}</td>
+      </tr></table>
+      ${fax ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;"><tr>
+        <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_FAX}" width="13" height="13" style="display:block;border:0;" alt=""></td>
+        <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${fax}</td>
+      </tr></table>` : ''}
       ${withLinks ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;">
           <a href="${linkedin}" style="text-decoration:none;display:block;">
@@ -190,8 +202,14 @@ function getSig3(name, title, phone, fax, linkedin, withLinks = true) {
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
       <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
       <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;">${title}</p>
-      <p style="margin:0 0 1px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">p: ${phone}</p>
-      ${fax ? '<p style="margin:0 0 4px 0;font-size:15px;color:#182951;font-family:Arial,sans-serif;">f: ' + fax + '</p>' : ''}
+      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
+        <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_PHONE}" width="13" height="13" style="display:block;border:0;" alt=""></td>
+        <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${phone}</td>
+      </tr></table>
+      ${fax ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;"><tr>
+        <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_FAX}" width="13" height="13" style="display:block;border:0;" alt=""></td>
+        <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${fax}</td>
+      </tr></table>` : ''}
       ${withLinks ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-top:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;">
           <a href="${linkedin}" style="text-decoration:none;display:block;">
@@ -265,19 +283,23 @@ async function buildImgSig(variant, name, title, phone, fax, linkedin) {
   const imgH    = sigCanvas.height;
   const sigJpeg = sigCanvas.toDataURL('image/jpeg', 0.92);
 
-  // ── HTML link bar — just the LinkedIn icon, larger, no text, no border ────────
+  // ── HTML link bar — LinkedIn + Globe icons side by side, no text, no border ───
   const linkBar =
     `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border-collapse:collapse;">` +
       `<tr>` +
-        `<td bgcolor="#ffffff" style="background-color:#ffffff;padding:6px 0 0 0;">` +
-          `<a href="${linkedin}" style="text-decoration:none;display:inline-block;line-height:0;">` +
-            `<img src="${imgs.IMG_LINKEDIN}" width="32" height="32" alt="LinkedIn" border="0" style="display:block;border:0;">` +
+        `<td bgcolor="#ffffff" style="background-color:#ffffff;padding:4px 0 0 0;white-space:nowrap;">` +
+          `<a href="${linkedin}" style="text-decoration:none;display:inline-block;line-height:0;margin-right:8px;vertical-align:middle;">` +
+            `<img src="${imgs.IMG_LINKEDIN}" width="32" height="32" alt="LinkedIn" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
+          `</a>` +
+          `<a href="http://www.elmandoakhealth.com/" style="text-decoration:none;display:inline-block;line-height:0;vertical-align:middle;">` +
+            `<img src="${imgs.IMG_GLOBE}" width="32" height="32" alt="Website" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
           `</a>` +
         `</td>` +
       `</tr>` +
     `</table>`;
 
-  return `<table cellpadding="0" cellspacing="0" border="0">` +
+  // Max-width wrapper keeps sig from stretching on wide-screen Outlook windows
+  return `<table cellpadding="0" cellspacing="0" border="0" align="left" style="max-width:620px;">` +
     `<tr><td style="padding:0;">` +
       `<img src="${sigJpeg}" width="${imgW}" height="${imgH}" border="0" style="display:block;border:0;" alt="Email Signature">` +
     `</td></tr>` +
@@ -373,7 +395,40 @@ async function copySig(variant) {
   }
 }
 
-updateAll();
+// ── Icon generation ────────────────────────────────────────────────────────────
+// Converts an SVG string to a base64 PNG data URL via canvas.
+// Used to produce phone, fax, and globe icons that render in both
+// html2canvas (for the JPEG capture) and Outlook HTML (for the link bar).
+function svgToPng(svgStr, size) {
+  return new Promise(resolve => {
+    const img = new Image();
+    const blob = new Blob([svgStr], { type: 'image/svg+xml' });
+    const url  = URL.createObjectURL(blob);
+    img.onload = () => {
+      const c = document.createElement('canvas');
+      c.width = c.height = size;
+      c.getContext('2d').drawImage(img, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL('image/png'));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); resolve(''); };
+    img.src = url;
+  });
+}
+
+const SVG_PHONE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#182951" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.96 3.38 2 2 0 0 1 3.94 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15z"/></svg>`;
+
+const SVG_FAX = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#182951" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><rect x="2" y="9" width="20" height="10" rx="2"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`;
+
+const SVG_GLOBE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0A66C2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
+
+(async () => {
+  // Generate at 2× for crispness, display at 1×
+  imgs.IMG_PHONE = await svgToPng(SVG_PHONE, 28);
+  imgs.IMG_FAX   = await svgToPng(SVG_FAX,   28);
+  imgs.IMG_GLOBE = await svgToPng(SVG_GLOBE, 64);
+  updateAll();
+})();
 </script>
 </body>
 </html>
