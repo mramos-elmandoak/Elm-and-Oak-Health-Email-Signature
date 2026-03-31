@@ -60,12 +60,6 @@
       <input type="text" id="inp-fax" placeholder="585-000-0000" oninput="updateAll()">
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-field" style="min-width:100%;">
-      <label for="inp-linkedin">LinkedIn URL</label>
-      <input type="url" id="inp-linkedin" value="https://www.linkedin.com/company/monroe-plan-for-medical-care" oninput="updateAll()">
-    </div>
-  </div>
 </div>
 
 <div class="instructions">
@@ -260,7 +254,7 @@ function updateAll() {
   const title    = document.getElementById('inp-title').value   || 'Your Title';
   const phone    = document.getElementById('inp-phone').value   || '000-000-0000';
   const fax      = document.getElementById('inp-fax').value;
-  const linkedin = document.getElementById('inp-linkedin').value || 'https://www.linkedin.com/company/monroe-plan-for-medical-care';
+  const linkedin = 'https://www.linkedin.com/company/monroe-plan-for-medical-care';
   setFrame('preview1', getSig1(name, title, phone, fax, linkedin));
   setFrame('preview2', getSig2(name, title, phone, fax, linkedin));
   setFrame('preview3', getSig3(name, title, phone, fax, linkedin));
@@ -289,10 +283,10 @@ async function buildImgSig(variant, name, title, phone, fax, linkedin) {
       `<tr>` +
         `<td bgcolor="#ffffff" style="background-color:#ffffff;padding:4px 0 0 0;white-space:nowrap;">` +
           `<a href="${linkedin}" style="text-decoration:none;display:inline-block;line-height:0;margin-right:8px;vertical-align:middle;">` +
-            `<img src="${imgs.IMG_LINKEDIN}" width="32" height="32" alt="LinkedIn" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
+            `<img src="${imgs.IMG_LINKEDIN}" width="24" height="24" alt="LinkedIn" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
           `</a>` +
           `<a href="http://www.elmandoakhealth.com/" style="text-decoration:none;display:inline-block;vertical-align:middle;">` +
-            `<img src="${imgs.IMG_GLOBE}" width="32" height="32" alt="Website" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
+            `<img src="${imgs.IMG_GLOBE}" width="24" height="24" alt="Website" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
           `</a>` +
           `<a href="http://www.elmandoakhealth.com/" style="font-family:Arial,sans-serif;font-size:13px;color:#0563C1;text-decoration:none;vertical-align:middle;margin-left:6px;">www.elmandoakhealth.com</a>` +
         `</td>` +
@@ -367,7 +361,7 @@ async function copySig(variant) {
   const title    = document.getElementById('inp-title').value   || 'Your Title';
   const phone    = document.getElementById('inp-phone').value   || '000-000-0000';
   const fax      = document.getElementById('inp-fax').value;
-  const linkedin = document.getElementById('inp-linkedin').value || 'https://www.linkedin.com/company/monroe-plan-for-medical-care';
+  const linkedin = 'https://www.linkedin.com/company/monroe-plan-for-medical-care';
   const btn      = document.getElementById('btn' + variant);
   const COPY_ICON  = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
   const CHECK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
