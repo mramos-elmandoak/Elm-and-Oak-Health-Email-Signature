@@ -253,78 +253,42 @@ async function buildImgSig(variant, name, title, phone, fax, linkedin) {
   const sigFns = { 1: getSig1, 2: getSig2, 3: getSig3 };
   const renderDiv = document.getElementById('sig-render');
 
-  // ── Main signature JPEG ───────────────────────────────────────────────────────
+  // ── Main signature JPEG (withLinks=false — links live in the HTML bar below) ──
   renderDiv.style.display = 'inline-block';
-  renderDiv.innerHTML = sigFns[variant](name, title, phone, fax, linkedin, true);
+  renderDiv.innerHTML = sigFns[variant](name, title, phone, fax, linkedin, false);
   await new Promise(r => setTimeout(r, 500));
 
   const sigCanvas = await html2canvas(renderDiv, { backgroundColor: '#ffffff', scale: 1, logging: false });
-  renderDiv.innerHTML = '';
-  const imgW   = sigCanvas.width;
-  const imgH   = sigCanvas.height;
-  const sigJpeg = sigCanvas.toDataURL('image/jpeg', 0.92);
-
-  // ── Link bar: render as one strip, split at the divider into two click zones ──
-  const barHtml =
-    `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" ` +
-        `style="background:#ffffff;border-top:2px solid #00736A;">` +
-      `<tr><td style="padding:7px 0;white-space:nowrap;vertical-align:middle;">` +
-        `<table cellpadding="0" cellspacing="0" border="0"><tr>` +
-          `<td style="padding-right:5px;vertical-align:middle;">` +
-            `<img src="${imgs.IMG_LINKEDIN}" width="18" height="18" style="display:block;border:0;">` +
-          `</td>` +
-          `<td style="font-size:13px;font-family:Arial,sans-serif;color:#0563C1;vertical-align:middle;padding-right:14px;">LinkedIn</td>` +
-          `<td id="bar-split" style="font-size:15px;color:#c0c0c0;vertical-align:middle;padding-right:14px;">|</td>` +
-          `<td style="font-size:13px;font-family:Arial,sans-serif;color:#0563C1;text-decoration:underline;vertical-align:middle;">www.elmandoakhealth.com</td>` +
-        `</tr></table>` +
-      `</td></tr>` +
-    `</table>`;
-
-  renderDiv.innerHTML = barHtml;
-  await new Promise(r => setTimeout(r, 200));
-
-  const divRect = renderDiv.getBoundingClientRect();
-  const splitEl = renderDiv.querySelector('#bar-split');
-  const splitX  = splitEl ? Math.round(splitEl.getBoundingClientRect().right - divRect.left) : -1;
-
-  const barCanvas = await html2canvas(renderDiv, { backgroundColor: '#ffffff', scale: 1, logging: false });
   renderDiv.style.display = 'none';
   renderDiv.innerHTML = '';
+  const imgW    = sigCanvas.width;
+  const imgH    = sigCanvas.height;
+  const sigJpeg = sigCanvas.toDataURL('image/jpeg', 0.92);
 
-  const barW = barCanvas.width;
-  const barH = barCanvas.height;
+  // ── HTML link bar — real <a> tags so Outlook renders them as clickable links ──
+  // Wrapping JPEG images in <a> tags does not work in Outlook (data-URL images
+  // inside anchors are stripped). Plain HTML anchors always work.
+  const linkBar =
+    `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border-collapse:collapse;">` +
+      `<tr>` +
+        `<td bgcolor="#ffffff" style="background-color:#ffffff;padding:6px 0 0 0;border-top:2px solid #00736A;white-space:nowrap;">` +
+          `<a href="${linkedin}" style="text-decoration:none;display:inline-block;vertical-align:middle;margin-right:4px;">` +
+            `<img src="${imgs.IMG_LINKEDIN}" width="18" height="18" alt="LinkedIn" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
+          `</a>` +
+          `<a href="${linkedin}" style="font-family:Arial,sans-serif;font-size:13px;color:#0563C1;text-decoration:none;vertical-align:middle;">LinkedIn</a>` +
+          `<span style="font-family:Arial,sans-serif;font-size:13px;color:#c0c0c0;vertical-align:middle;">&nbsp;&nbsp;|&nbsp;&nbsp;</span>` +
+          `<a href="http://www.elmandoakhealth.com/" style="font-family:Arial,sans-serif;font-size:13px;color:#0563C1;text-decoration:underline;vertical-align:middle;">www.elmandoakhealth.com</a>` +
+        `</td>` +
+      `</tr>` +
+    `</table>`;
 
-  // Slice the bar canvas into LinkedIn half and website half
-  const liCanvas = document.createElement('canvas');
-  liCanvas.width = splitX > 0 ? splitX : Math.floor(barW / 2);
-  liCanvas.height = barH;
-  liCanvas.getContext('2d').drawImage(barCanvas, 0, 0, liCanvas.width, barH, 0, 0, liCanvas.width, barH);
-  const liJpeg = liCanvas.toDataURL('image/jpeg', 0.95);
-
-  const webW = barW - liCanvas.width;
-  const webCanvas = document.createElement('canvas');
-  webCanvas.width = webW; webCanvas.height = barH;
-  webCanvas.getContext('2d').drawImage(barCanvas, liCanvas.width, 0, webW, barH, 0, 0, webW, barH);
-  const webJpeg = webCanvas.toDataURL('image/jpeg', 0.95);
-
-  // Two image halves side by side — each wrapped in its own <a>
-  // Both are JPEGs so dark mode cannot recolor them
   return `<table cellpadding="0" cellspacing="0" border="0">` +
-    `<tr><td style="padding:0;" colspan="2">` +
+    `<tr><td style="padding:0;">` +
       `<img src="${sigJpeg}" width="${imgW}" height="${imgH}" border="0" style="display:block;border:0;" alt="Email Signature">` +
     `</td></tr>` +
-    `<tr>` +
-      `<td style="padding:0;line-height:0;">` +
-        `<a href="${linkedin}" style="text-decoration:none;display:block;line-height:0;">` +
-          `<img src="${liJpeg}" width="${liCanvas.width}" height="${barH}" border="0" style="display:block;border:0;" alt="LinkedIn">` +
-        `</a>` +
-      `</td>` +
-      `<td style="padding:0;line-height:0;">` +
-        `<a href="http://www.elmandoakhealth.com/" style="text-decoration:none;display:block;line-height:0;">` +
-          `<img src="${webJpeg}" width="${webW}" height="${barH}" border="0" style="display:block;border:0;" alt="www.elmandoakhealth.com">` +
-        `</a>` +
-      `</td>` +
-    `</tr>` +
+    `<tr><td style="padding:0;">` +
+      linkBar +
+    `</td></tr>` +
   `</table>`;
 }
 
