@@ -265,19 +265,14 @@ async function buildImgSig(variant, name, title, phone, fax, linkedin) {
   const imgH    = sigCanvas.height;
   const sigJpeg = sigCanvas.toDataURL('image/jpeg', 0.92);
 
-  // ── HTML link bar — real <a> tags so Outlook renders them as clickable links ──
-  // Wrapping JPEG images in <a> tags does not work in Outlook (data-URL images
-  // inside anchors are stripped). Plain HTML anchors always work.
+  // ── HTML link bar — just the LinkedIn icon, larger, no text, no border ────────
   const linkBar =
     `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="background-color:#ffffff;border-collapse:collapse;">` +
       `<tr>` +
-        `<td bgcolor="#ffffff" style="background-color:#ffffff;padding:6px 0 0 0;border-top:2px solid #00736A;white-space:nowrap;">` +
-          `<a href="${linkedin}" style="text-decoration:none;display:inline-block;vertical-align:middle;margin-right:4px;">` +
-            `<img src="${imgs.IMG_LINKEDIN}" width="18" height="18" alt="LinkedIn" border="0" style="display:inline-block;border:0;vertical-align:middle;">` +
+        `<td bgcolor="#ffffff" style="background-color:#ffffff;padding:6px 0 0 0;">` +
+          `<a href="${linkedin}" style="text-decoration:none;display:inline-block;line-height:0;">` +
+            `<img src="${imgs.IMG_LINKEDIN}" width="32" height="32" alt="LinkedIn" border="0" style="display:block;border:0;">` +
           `</a>` +
-          `<a href="${linkedin}" style="font-family:Arial,sans-serif;font-size:13px;color:#0563C1;text-decoration:none;vertical-align:middle;">LinkedIn</a>` +
-          `<span style="font-family:Arial,sans-serif;font-size:13px;color:#c0c0c0;vertical-align:middle;">&nbsp;&nbsp;|&nbsp;&nbsp;</span>` +
-          `<a href="http://www.elmandoakhealth.com/" style="font-family:Arial,sans-serif;font-size:13px;color:#0563C1;text-decoration:underline;vertical-align:middle;">www.elmandoakhealth.com</a>` +
         `</td>` +
       `</tr>` +
     `</table>`;
