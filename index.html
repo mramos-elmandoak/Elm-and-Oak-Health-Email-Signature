@@ -117,10 +117,10 @@ function getSig1(name, title, phone, fax, linkedin, withLinks = true) {
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
       <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
       <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;max-width:250px;">${title}</p>
-      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
+      ${phone ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_PHONE}" width="13" height="13" style="display:block;border:0;" alt=""></td>
         <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${phone}</td>
-      </tr></table>
+      </tr></table>` : ''}
       ${fax ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_FAX}" width="13" height="13" style="display:block;border:0;" alt=""></td>
         <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${fax}</td>
@@ -155,10 +155,10 @@ function getSig2(name, title, phone, fax, linkedin, withLinks = true) {
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
       <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
       <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;max-width:250px;">${title}</p>
-      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
+      ${phone ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_PHONE}" width="13" height="13" style="display:block;border:0;" alt=""></td>
         <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${phone}</td>
-      </tr></table>
+      </tr></table>` : ''}
       ${fax ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_FAX}" width="13" height="13" style="display:block;border:0;" alt=""></td>
         <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${fax}</td>
@@ -196,10 +196,10 @@ function getSig3(name, title, phone, fax, linkedin, withLinks = true) {
     <td style="padding-right:16px;vertical-align:top;border-right:2px solid #00736A;">
       <p style="margin:0 0 1px 0;font-size:17px;font-weight:bold;color:#002351;font-family:Georgia,serif;">${name}</p>
       <p style="margin:0 0 6px 0;font-size:17px;font-style:italic;color:#0e5b1a;font-family:Georgia,serif;max-width:250px;">${title}</p>
-      <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
+      ${phone ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:1px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_PHONE}" width="13" height="13" style="display:block;border:0;" alt=""></td>
         <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${phone}</td>
-      </tr></table>
+      </tr></table>` : ''}
       ${fax ? `<table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:4px;"><tr>
         <td style="padding-right:5px;vertical-align:middle;"><img src="${imgs.IMG_FAX}" width="13" height="13" style="display:block;border:0;" alt=""></td>
         <td style="font-size:15px;color:#182951;font-family:Arial,sans-serif;vertical-align:middle;">${fax}</td>
@@ -252,7 +252,7 @@ function setFrame(id, html) {
 function updateAll() {
   const name     = document.getElementById('inp-name').value    || 'Your Name';
   const title    = document.getElementById('inp-title').value   || 'Your Title';
-  const phone    = document.getElementById('inp-phone').value   || '000-000-0000';
+  const phone    = document.getElementById('inp-phone').value;
   const fax      = document.getElementById('inp-fax').value;
   const linkedin = 'https://www.linkedin.com/company/monroe-plan-for-medical-care';
   setFrame('preview1', getSig1(name, title, phone, fax, linkedin));
@@ -359,7 +359,7 @@ function writeHtmlToClipboard(html) {
 async function copySig(variant) {
   const name     = document.getElementById('inp-name').value    || 'Your Name';
   const title    = document.getElementById('inp-title').value   || 'Your Title';
-  const phone    = document.getElementById('inp-phone').value   || '000-000-0000';
+  const phone    = document.getElementById('inp-phone').value;
   const fax      = document.getElementById('inp-fax').value;
   const linkedin = 'https://www.linkedin.com/company/monroe-plan-for-medical-care';
   const btn      = document.getElementById('btn' + variant);
